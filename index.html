@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПОРЦИЯ — Экосистема порционных вкусов</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            padding: 100px 20px;
+            text-align: center;
+            border-bottom: 2px solid #f7a026;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-family: 'Bebas Neue', sans-serif;
+            margin-bottom: 20px;
+            color: #f7a026;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #f7a026;
+            color: #0a0a0a;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: #e8390f;
+            transform: translateY(-2px);
+        }
+        
+        /* ГАЛЕРЕЯ */
+        .gallery {
+            padding: 80px 20px;
+            background: #0a0a0a;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-family: 'Bebas Neue', sans-serif;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f7a026;
+            text-transform: uppercase;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #999;
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: transparent;
+            border: 2px solid #f7a026;
+            color: #f7a026;
+            padding: 8px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #f7a026;
+            color: #0a0a0a;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            background: #1a1a2e;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(247, 160, 38, 0.3);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .gallery-item-title {
+            padding: 15px;
+            font-weight: 600;
+            color: #f7a026;
+        }
+        
+        /* ОТЗЫВЫ */
+        .testimonials {
+            padding: 80px 20px;
+            background: #1a1a2e;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: #0a0a0a;
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 4px solid #f7a026;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            color: #ccc;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: #f7a026;
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-role {
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        /* О НАС */
+        .about {
+            padding: 80px 20px;
+            background: #0a0a0a;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-size: 1.5rem;
+            color: #f7a026;
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .value {
+            background: #1a1a2e;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 3px solid #f7a026;
+        }
+        
+        .value-title {
+            color: #f7a026;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .value-desc {
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .stat {
+            background: #1a1a2e;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            color: #f7a026;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            color: #999;
+            margin-top: 10px;
+        }
+        
+        /* ФОРМА КОНТАКТОВ */
+        .contact-form {
+            padding: 80px 20px;
+            background: #1a1a2e;
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #0a0a0a;
+            padding: 40px;
+            border-radius: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #f7a026;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #333;
+            background: #1a1a2e;
+            color: #fff;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #f7a026;
+            box-shadow: 0 0 5px rgba(247, 160, 38, 0.3);
+        }
+        
+        .form-submit {
+            width: 100%;
+            padding: 15px;
+            background: #f7a026;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .form-submit:hover {
+            background: #e8390f;
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: #0a0a0a;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 2px solid #f7a026;
+            color: #999;
+        }
+        
+        /* МОДАЛЬНОЕ ОКНО */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #f7a026;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <h1>🍓 ПОРЦИЯ 🍯</h1>
+            <p>Экосистема порционных вкусов: соевый соус и стики с мёдом и вареньем</p>
+            <button class="btn" onclick="scrollToSection('contact-form')">ЗАКАЗАТЬ</button>
+        </div>
+    </section>
+
+    <!-- ГАЛЕРЕЯ ТОВАРОВ -->
+    <section class="gallery">
+        <div class="container">
+            <h2 class="section-title">📸 Галерея Товаров</h2>
+            <p class="section-subtitle">Красивая упаковка, натуральные ингредиенты</p>
+            
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterGallery('all')">Все</button>
+                <button class="filter-btn" onclick="filterGallery('мёд')">🍯 Мёд</button>
+                <button class="filter-btn" onclick="filterGallery('варенье')">🍓 Варенье</button>
+                <button class="filter-btn" onclick="filterGallery('упаковка')">📦 Упаковка</button>
+            </div>
+            
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Галерея будет заполнена JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ОТЗЫВЫ КЛИЕНТОВ -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">💬 Отзывы Клиентов</h2>
+            <p class="section-subtitle">Что говорят о нас наши партнёры</p>
+            
+            <div class="testimonials-grid" id="testimonialsList">
+                <!-- Отзывы будут заполнены JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- О НАС -->
+    <section class="about">
+        <div class="container">
+            <h2 class="section-title">ℹ️ О Компании</h2>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>🏆 Наша История</h3>
+                    <p>Компания ПОРЦИЯ была основана более 10 лет назад с целью создать идеальный продукт для современного потребителя.</p>
+                    <p>Мы верим в качество, натуральность и удобство. Каждая порция — это результат тщательного отбора ингредиентов и инновационного подхода к упаковке.</p>
+                    <p>Сегодня ПОРЦИЯ — это выбор более 50 партнёров и 100 000 довольных клиентов по всему миру.</p>
+                </div>
+                
+                <div>
+                    <div class="values-grid">
+                        <div class="value">
+                            <div class="value-title">✨ Натуральность</div>
+                            <div class="value-desc">Только натуральные ингредиенты без добавок</div>
+                        </div>
+                        <div class="value">
+                            <div class="value-title">🎯 Качество</div>
+                            <div class="value-desc">Строгий контроль на каждом этапе</div>
+                        </div>
+                        <div class="value">
+                            <div class="value-title">♻️ Экология</div>
+                            <div class="value-desc">Ноль отходов, переработка 100%</div>
+                        </div>
+                        <div class="value">
+                            <div class="value-title">⚡ Удобство</div>
+                            <div class="value-desc">Идеальные порции для быстрого перекуса</div>
+                        </div>
+                        <div class="value">
+                            <div class="value-title">🚀 Инновации</div>
+                            <div class="value-desc">Передовые технологии упаковки</div>
+                        </div>
+                        <div class="value">
+                            <div class="value-title">❤️ Любовь</div>
+                            <div class="value-desc">Готовим с душой и заботой</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 60px;">
+                <h3 class="section-title" style="margin-bottom: 40px;">📊 Наши Результаты</h3>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Лет на рынке</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100K+</div>
+                        <div class="stat-label">Довольных клиентов</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Партнёров</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФОРМА КОНТАКТОВ -->
+    <section class="contact-form" id="contact-form">
+        <div class="container">
+            <h2 class="section-title">📝 Форма Заказа</h2>
+            <p class="section-subtitle">Свяжитесь с нами и получите персональное предложение</p>
+            
+            <div class="form-container">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Ваше имя *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Телефон *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company">Компания</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product">Выберите продукт *</label>
+                        <select id="product" name="product" required>
+                            <option value="">-- Выберите --</option>
+                            <option value="Мёд 10г">🍯 Мёд 10г</option>
+                            <option value="Варенье клубника 10г">🍓 Варенье клубника 10г</option>
+                            <option value="Варенье малина 10г">🍓 Варенье малина 10г</option>
+                            <option value="Соевый соус 10г">🥢 Соевый соус 10г</option>
+                            <option value="Микс-бокс">📦 Микс-бокс 4 вкуса</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Сообщение</label>
+                        <textarea id="message" name="message" placeholder="Расскажите о ваших пожеланиях..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="form-submit">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <h3 style="color: #f7a026; margin-bottom: 20px;">ПОРЦИЯ</h3>
+            <p>📞 Телефон: <strong>+7 701 531 58 72</strong></p>
+            <p>📧 Email: <strong>erkin12@mail.ru</strong></p>
+            <p>📍 Адрес: г. Алматы, ул. Толе би, 301</p>
+            <p style="margin-top: 30px; color: #666;">© 2026 ПОРЦИЯ. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ФОТО -->
+    <div class="modal" id="photoModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img id="modalImage" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        // ДАННЫЕ ГАЛЕРЕИ
+        const galleryData = [
+            { title: 'Мёд натуральный', category: 'мёд', img: 'https://via.placeholder.com/250?text=Мёд' },
+            { title: 'Варенье клубника', category: 'варенье', img: 'https://via.placeholder.com/250?text=Клубника' },
+            { title: 'Варенье малина', category: 'варенье', img: 'https://via.placeholder.com/250?text=Малина' },
+            { title: 'Упаковка премиум', category: 'упаковка', img: 'https://via.placeholder.com/250?text=Упаковка' },
+            { title: 'Соевый соус', category: 'мёд', img: 'https://via.placeholder.com/250?text=Соус' },
+            { title: 'Варенье смородина', category: 'варенье', img: 'https://via.placeholder.com/250?text=Смородина' },
+        ];
+
+        // ДАННЫЕ ОТЗЫВОВ
+        const testimonials = [
+            {
+                text: 'Отличный продукт! Мои клиенты в суши-барах просят ещё.',
+                author: 'Марат К.',
+                role: 'Владелец суши-бара'
+            },
+            {
+                text: 'Натуральные ингредиенты и удобная упаковка. Рекомендую!',
+                author: 'Лиана М.',
+                role: 'Шеф-повар кофейни'
+            },
+            {
+                text: 'Лучшие порции мёда! Дешево и качественно.',
+                author: 'Арман Т.',
+                role: 'Оптовый покупатель'
+            },
+            {
+                text: 'Идеально для завтраков в отеле. Гости в восторге!',
+                author: 'Айгуль Б.',
+                role: 'Менеджер отеля'
+            },
+            {
+                text: 'Экологичная упаковка и превосходный вкус.',
+                author: 'Гаухар С.',
+                role: 'Розничный покупатель'
+            },
+            {
+                text: 'Надежный партнер. Работаем уже 3 года.',
+                author: 'Кайрат Н.',
+                role: 'Владелец ресторана'
+            }
+        ];
+
+        // ОТРИСОВКА ГАЛЕРЕИ
+        function renderGallery(data) {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = data.map(item => `
+                <div class="gallery-item" onclick="openModal('${item.img}')">
+                    <img src="${item.img}" alt="${item.title}">
+                    <div class="gallery-item-title">${item.title}</div>
+                </div>
+            `).join('');
+        }
+
+        // ФИЛЬТР ГАЛЕРЕИ
+        function filterGallery(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const filtered = category === 'all' ? galleryData : galleryData.filter(item => item.category === category);
+            renderGallery(filtered);
+        }
+
+        // ОТРИСОВКА ОТЗЫВОВ
+        function renderTestimonials() {
+            const list = document.getElementById('testimonialsList');
+            list.innerHTML = testimonials.map(t => `
+                <div class="testimonial-card">
+                    <div class="testimonial-text">"${t.text}"</div>
+                    <div class="testimonial-author">— ${t.author}</div>
+                    <div class="testimonial-role">${t.role}</div>
+                </div>
+            `).join('');
+        }
+
+        // МОДАЛЬНОЕ ОКНО
+        function openModal(img) {
+            document.getElementById('photoModal').classList.add('active');
+            document.getElementById('modalImage').src = img;
+        }
+
+        function closeModal() {
+            document.getElementById('photoModal').classList.remove('active');
+        }
+
+        // ФОРМА
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            alert(`Спасибо, ${name}! Мы вскоре свяжемся с вами.`);
+            this.reset();
+        });
+
+        // ПЛАВНЫЙ СКРОЛОЛ К СЕКЦИИ
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА ПО КЛИКУ ВНЕ
+        window.onclick = function(event) {
+            const modal = document.getElementById('photoModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // ИНИЦИАЛИЗАЦИЯ
+        renderGallery(galleryData);
+        renderTestimonials();
+    </script>
+</body>
+</html>
