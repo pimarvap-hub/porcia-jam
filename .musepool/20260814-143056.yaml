@@ -1,0 +1,245 @@
+items:
+- short_id: 20FOBGIc
+  seed: |
+    # Narrative
+
+    A boutique creative studio homepage presenting itself as a brand design partner. The narrative flows from an immersive split-screen hero through work showcase, studio philosophy, resources, and news. The site targets brands seeking comprehensive identity work—packaging, web, messaging, illustration, 3D rendering. The story emphasizes long-term partnerships and craft excellence.
+
+    # Tech Stack
+
+    Next.js with static generation (SSG), Prismic CMS for content, Framer Motion for page transitions (`initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}`). Styled Components for CSS-in-JS. Swiper for carousels.
+
+    # Layout
+
+    Split-screen hero: left panel (≈60%) holds immersive product photography with water droplets, right panel (≈40%) shows stacked product packaging. Centered floating navigation bar overlaps the split. Below: centered headline, filterable work grid (3-column), statement section with dual CTAs, two-column feature cards, news grid (3-column), newsletter signup, minimal footer. Generous vertical rhythm with large section gaps.
+
+    # Typography
+
+    TWK Lausanne family (300, 400, 700 weights) throughout. Geometric sans with clean lines. Large display headlines use tight tracking. Body text maintains comfortable readability. The font establishes Swiss-influenced precision.
+
+    # Color
+
+    Near-black background (#0a0a0a or similar) as dominant canvas. White text for high contrast. Accent colors emerge from project imagery—warm oranges, cool blues, vibrant reds. Cards use light backgrounds (smoke/off-white) for contrast against dark page ground. Hero navigation uses black/white pill buttons.
+
+    # Imagery
+
+    High-end product photography dominates: cosmetics (water droplets on black), thermostat packaging (stacked boxes with gradient display), skincare (hands holding red compact). Photography style: studio-lit, shallow depth, tactile surfaces. Video backgrounds in feature cards (blurred motion). News thumbnails show retail environments and brand applications.
+
+    # Components
+
+    Pill-shaped filter buttons with active state (filled black). Work cards: full-bleed image with title and description below. Feature cards: rounded rectangles with video background, text overlay, arrow links. Newsletter input: minimal underline style with submit button. Footer: simple text row with social links.
+
+    # Motion
+
+    Page transitions use Framer Motion fade (300ms opacity). Scroll indicator pulses in hero. Hover states on cards likely include subtle scale or overlay reveals. Video backgrounds autoplay with ambient motion. See references/motion.md for transition implementation.
+
+    # Algorithms
+
+    Standard implementation, no special design.
+
+    # Material
+
+    Standard implementation, no special design.
+
+    # Craft
+
+    Rounded corners (≈10px) on cards and buttons. Consistent 10px/20px padding scale. Split-screen hero creates visual tension. Centered floating nav breaks the grid intentionally. Water droplet photography adds tactile materiality.
+  references:
+    motion: |
+      # Motion Reference
+
+      ## Page Transitions
+
+      Framer Motion AnimatePresence wrapper:
+      ```javascript
+      // From source/assets/js/b9aebd293cc641-index-4a53732e51d4f460.js
+      import { motion } from 'framer-motion';
+
+      const PageTransition = ({ children }) => (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          {children}
+        </motion.div>
+      );
+      ```
+
+      Simple crossfade between routes—no complex choreography. Duration inferred from standard Framer Motion defaults (≈300ms).
+
+      ## Reusable Move
+
+      `framer_fade_transition` — minimal opacity crossfade for page navigation, suitable for portfolio sites where content should speak without distraction.
+- short_id: 7mBJMR9f
+  seed: |
+    # Narrative
+
+    A creative studio portfolio rooted in subculture. The site presents itself as a dark, immersive showcase for branding and digital design work. Narrative flow: full-bleed project hero with video backgrounds → manifesto statement in oversized condensed type → case study thumbnails with shader-powered WebGL distortion → news grid → footer with decorative blackletter typography. The intent is to signal cultural credibility through raw, unpolished visual energy.
+
+    # Tech Stack
+
+    Next.js with React Three Fiber (R3F) for WebGL shader effects. Lenis for smooth scroll. GSAP/Framer Motion for orchestrated entrances. Flickity for carousels. Custom GLSL shaders handle image distortion on case study thumbnails.
+
+    # Layout
+
+    Full-bleed immersive layout with zero side margins on hero sections. Content uses a fluid wrapper: `padding-left: 3.2vw` mobile, `2.03125vw` desktop, max-width 1920px. Heavy negative space in manifesto section — text floats in vast dark void. Case studies use asymmetric grid with staggered thumbnail sizes. Fixed header with minimal nav (hamburger + logo + contact).
+
+    # Typography
+
+    Primary font: Greed Standard (condensed grotesque, Bold + Regular weights). Fluid type scale using clamp-like calc: H1 scales from 80px (320px viewport) to 200px (1400px+). Tight line-height on display type: `line-height: 0.8` for H1. All-caps for manifesto statements. Small-caps utility class for metadata. The condensed proportion creates vertical tension against horizontal video frames.
+
+    # Color
+
+    Near-black dominant: `#18181b` for primary background. Slightly lifted dark surfaces: `#2e2e30` for cards, `#252526` for hover states. Accent is a muted lime/yellow: `#eef0b1` used sparingly for CTAs and highlights. Text is pure white `#fff` with secondary text at `#969696`. High contrast, dark-led atmosphere.
+
+    # Imagery
+
+    Video-led hero sections with 1440p MP4 backgrounds (compressed for web). Case study thumbnails use shader-distorted images with RGB shift and liquid displacement on hover. Photography style: raw documentary aesthetic, street culture, unpolished product shots. Images are full-bleed within rounded containers (`border-radius: 12px`).
+
+    # Components
+
+    **Case Study Cards**: Rounded rectangles (12px radius) with WebGL canvas overlay. On hover: shader activates with mouse-driven distortion, card detail expands from 48px icon to full info panel. Background scales from 48×48px to 100% via `data-inview` attribute transition (0.75s cubic-bezier(0.85, 0, 0.15, 1)).
+
+    **Buttons**: Minimal text links with animated underline. No filled buttons — text-only with hover state color shift.
+
+    **Navigation**: Fixed top bar with hamburger menu (left), centered decorative logo mark, mail icon (right).
+
+    # Motion
+
+    Signature motion language: smooth scroll with Lenis (0.1 damping feel). Scroll-triggered scale reveals (`ScaleAppear_scale__osJ01` with `--scale: 0.8` → 1). Custom cursor with mix-blend-mode difference — white circle that inverts over dark/light content. WebGL shader distortion on case study thumbnails: vertex shader displaces based on mouse position, fragment shader adds RGB split. Page transitions use content transform slide (0.6s cubic-bezier(0.42, 0, 0.21, 1)).
+
+    # Algorithms
+
+    WebGL shader for image distortion: vertex shader calculates position displacement based on mouse proximity; fragment shader samples texture with UV distortion for liquid effect. Uniforms include `mouse`, `time`, `scrollSpeed`, `blurStr`. See references/motion.md for GLSL structure.
+
+    # Material
+
+    Standard implementation, no special design.
+
+    # Craft
+
+    Custom cursor implementation uses `position: fixed` with `mix-blend-mode: difference` for automatic contrast inversion. Rounded corners consistently at 12px for all interactive containers. Focus states not visibly customized. Scrollbar styling not overridden (native). Loading state: content scales in from 0.9 with opacity fade.
+
+    # Coherence
+
+    The dark-led palette + Greed Standard condensed type + WebGL distortion + subcultural imagery forms a cohesive system. The design signals "underground credibility" through technical sophistication (shaders, smooth scroll) paired with raw, unpolished content. The mix-blend cursor unifies the experience by inverting across all content types.
+  references:
+    motion: |
+      # Motion Reference
+
+      ## Custom Cursor (Mix-Blend-Mode Difference)
+
+      **What**: White circular cursor that inverts colors over both dark and light content.
+
+      **Implementation**:
+      - Fixed position cursor element with `mix-blend-mode: difference`
+      - Background color: `#fff` (white)
+      - Size: 16px diameter circle
+      - Z-index: 1000 (above all content)
+      - Transition: `opacity 1s 0.6s, transform 0.5s cubic-bezier(0.19, 1, 0.22, 1)`
+
+      **CSS Classes**:
+      - `.Mouse_cursor__6Uj6P` — outer container
+      - `.Mouse_bg__5q5lj` — white circle background
+      - `.Mouse_text__zIJUv` — optional cursor label text
+
+      **Reusability**: Drop-in technique for any dark-led site. Requires `pointer-events: none` and fixed positioning.
+
+      ## Scroll-Triggered Scale Appear
+
+      **What**: Elements scale from 0.8 to 1.0 with opacity fade as they enter viewport.
+
+      **Implementation**:
+      - CSS custom property: `--scale: 0.8` (initial)
+      - Transform: `scale(var(--scale, 0.9))`
+      - Class: `.ScaleAppear_scale__osJ01`
+      - Intersection Observer toggles `data-inview` attribute
+
+      **Easing**: Elements use different cubic-bezier curves:
+      - Cursor: `cubic-bezier(0.19, 1, 0.22, 1)` (expo out)
+      - Card backgrounds: `cubic-bezier(0.85, 0, 0.15, 1)` (expo in-out)
+      - General transitions: `cubic-bezier(0.645, 0.045, 0.355, 1)` (inOutCubic)
+
+      ## Page Transition
+
+      **What**: Content slides vertically during route transitions.
+
+      **Implementation**:
+      - Class: `.global_content__rwaWZ`
+      - Transition: `transform 0.6s cubic-bezier(0.42, 0, 0.21, 1)`
+      - State class: `.global_isNavOpen__hbjJR` applies `pointer-events: none`
+
+      ## Smooth Scroll (Lenis)
+
+      **What**: Damped smooth scrolling with 0.1-like feel.
+
+      **Implementation**:
+      - HTML class: `lenis lenis-smooth`
+      - Integrated with GSAP ScrollTrigger for shader updates
+      - Scroll position feeds into WebGL uniforms for parallax distortion
+- short_id: spupOTxt
+  seed: |
+    # Narrative
+
+    A creative developer portfolio showcasing interactive web experiences. The narrative flows from an oversized typographic hero (name as architecture) through a work showcase, client list, to contact footer. The persona emphasizes dual competency in development and design, reinforced by playful details like a bird photograph with handwritten caption and a barcode phone number.
+
+    # Tech Stack
+
+    WordPress custom theme with Swup for page transitions, Lenis for smooth scrolling, GSAP + ScrollTrigger for scroll-driven animations, Three.js for WebGL background effects. jQuery for DOM manipulation. Custom shader materials for grid-based loading animations and cursor-reactive image distortion.
+
+    # Layout
+
+    Asymmetric editorial layout with generous negative space. Hero section uses viewport-width typography (15.9vw) with split-row treatment. Work section employs a mixed-grid strategy: full-width featured items alternate with half-width cards. Staggered vertical rhythm creates visual tension—elements intentionally break alignment. Canvas-based backgrounds sit behind content layers. Footer shifts to deep navy with contrasting oversized "CONNECT" lettering.
+
+    # Typography
+
+    Dual-font system: **Doner Display** (Black/Regular weights) for oversized headlines and UI, **Doner Text** (Medium) for body copy. **Brittany Signature** script for accent text ("Creative Developer" in hero). Display type uses tight leading with intentional overlap. Body text set in warm beige against navy (#22264B) at 0.875vw with 1.125vw line-height. Italics used for emphasis within paragraphs.
+
+    # Color
+
+    Warm beige-dominant palette: **#D7C6AD** (background), **#22264B** (deep navy text/primary), **#F7A026** (amber accent). Navy sections invert the scheme with beige text. High contrast maintained throughout. Selection color: rgba(0,0,0,0.3). Scrollbar thumb matches amber accent (#F7A026) against dark track (#0c0f24).
+
+    # Imagery
+
+    Project thumbnails with mixed aspect ratios—some video-backed (autoplay muted loops), others static. Images load with fade-in reveal. A small bird photograph appears as an Easter egg with handwritten SVG caption. Project cards use canvas containers with lazy-loaded responsive images.
+
+    # Components
+
+    **Buttons**: Pill-shaped with border, fill animation on hover (height expands from bottom). Primary variant uses navy background with white text; secondary uses amber (#F7A026).
+
+    **Tags**: Inline pill labels with plus-icon separators in marquee strips.
+
+    **Tooltip**: Quote-icon trigger revealing client/designer credits on hover.
+
+    **Barcode**: Functional phone number encoded as SVG barcode in hero.
+
+    **Line animations**: Vertical 2px lines with infinite slide animation (keyframes: line 2s infinite linear).
+
+    # Motion
+
+    Scroll-driven parallax on hero letters (data-scroll-speed attributes: 6, 3, 4). Marquee tags with scroll-speed coupling (data-marquee-scroll-speed). Page transitions via Swup with WebGL loader overlay—grid of squares fades in/out using custom Three.js shader. SVG path drawing on scroll (drawSVG plugin) for handwritten text elements. Staggered letter/word reveals using GSAP. Cursor-reactive image distortion on 404/error canvas (grid-based vertex displacement following mouse).
+
+    # Algorithms
+
+    WebGL fragment shader generates animated grid loader: per-cell random delay for fade-in, smoothstep interpolation for alpha. Error page uses grid-based UV distortion—mouse position drives vertex offset calculation with strength falloff based on distance to grid center. Random seed variation per page load for organic variation.
+
+    # Material
+
+    Subtle noise texture implied by warm beige background. No glassmorphism except header backdrop-filter blur on scroll. Canvas-rendered elements provide depth without physical material simulation.
+
+    # Craft
+
+    Custom scrollbar styling (6px width, amber thumb). Pixel-art SVG logo with four-state animation (LogoFrame-1 through LogoFrame-4 groups). Selection color respects the warm palette. Typography uses optical sizing. Responsive breakpoints at 1080px and 580px with vw-based scaling. Favicon switches dynamically.
+
+    # Coherence
+
+    The warm editorial palette, oversized display typography, and scroll-coupled motion create a distinctive creative developer persona. The handwriting SVGs and bird Easter egg add personal warmth that balances the technical WebGL effects. Every interaction feels considered—from the barcode phone number to the staggered letter animations.
+  references:
+        motion: "# Motion Reference\n\n## Scroll-Driven Parallax Typography\n\nHero letters use `data-scroll-speed` attributes with varying values (6, 3, 4) to create staggered vertical movement on scroll. Implemented via GSAP ScrollTrigger with scrub coupling.\n\n```javascript\n// From index_frozen.html\n<span class=\"row\" data-scroll-speed=\"6\">...</span>\n<span class=\"row\" data-scroll-speed=\"3\">...</span>\n```\n\n## Marquee with Scroll Coupling\n\nInfinite horizontal marquees with speed modulation based on scroll velocity. Uses `data-marquee-scroll-speed` and `data-marquee-speed` attributes.\n\n```javascript\n// Marquee configuration\n<span class=\"marquee\" \n  data-marquee-direction=\"left\" \n  data-marquee-scroll-speed=\"5\" \n  data-marquee-speed=\"100\"\n  data-marquee-swipe=\"true\">\n```\n\n## SVG Path Drawing\n\nHandwritten text elements use GSAP DrawSVG plugin for stroke animation on scroll trigger.\n\n```javascript\n// From 0b49ebab9f2b7f-743398e27e9c397e2ae2a287272acf9d.js\nScrollTrigger.create({\n  trigger: $(\".workFeaturedBlock .drawTextContainer\"),\n  start: \"0% 90%\",\n  end: \"0% 90%\",\n  once: true,\n  onEnter(self) {\n    gsap.to(\".draw\", 0, {drawSVG: \"0%\"});\n    gsap.to(\".draw:nth-child(1)\", .45, {drawSVG: \"100%\", delay: 0.1, ease: \"power1.in\"});\n    gsap.to(\".draw:nth-child(2)\", .7, {drawSVG: \"-100%\", delay: 0.6, ease: \"power1.in\"});\n  }\n});\n```\n\n## Page Transition Loader\n\nWebGL grid overlay using Three.js shader 
+      material.\
+      \ Grid squares fade in with per-cell random delay.\n\n**Shader uniforms:**\n- `time`: animation progress (0-15)\n- `scaleX`: canvas.width / 45 (desktop) or 15 (mobile)\n- `scaleY`: 20 (desktop) or 40 (mobile)\n- `color`: vec3(0.38, 0.39, 0.52) — warm gray\n\n**Fragment shader logic:**\n- Grid calculation using `fract()` and `step()`\n- Per-cell random offset for fade delay\n- `smoothstep(0.0, 1.0, fadeTime - fadeDelay)` for alpha\n- Fragments discarded when alpha <= 0.4\n\n## Staggered Letter Reveals\n\nTitle rows animate with sequential delays (0.1s increments) using GSAP y-transform.\n\n```javascript\n// From 70f0e972c102c8-0a22c322c9f5fd6b6c4f667f1d63c7a5.js\ngsap.to(\".row:first-child .line\", .6, {y: 0, ease: \"power2.out\"});\ngsap.to(\".row:last-child .line\", .6, {y: 0, ease: \"power2.out\", delay: .1});\n```\n\n## Reusable Move: scroll_coupled_marquee\n\nCombine infinite CSS translation with scroll velocity multiplier. Direction reverses via `data-marquee-direction`. Pause on hover optional.\n\n## Reusable Move: svg_path_draw_on_scroll\n\nUse stroke-dashoffset animation triggered at specific scroll positions. Split complex handwriting into multiple paths for staggered drawing effect.\n"
+
+<system-reminder>
+The risk is not borrowing too little — it is subconsciously simplifying what you borrowed. Cutting corners is forbidden in any form: never replace a reference's technique, material, structure, or motion with a cheaper version of your own. Downgrades follow repeatable patterns (illustrative, not exhaustive): input-driven motion (scroll/pointer/time) → one-shot keyframes or static states; shape-language transformation (morph/clip/mask) → the cheapest properties (scale/translate/opacity); asymmetric layout rhythm (irregular grids, editorial composition) → uniform columns and full-width stacks; layered material (blend/texture/depth) → flat single-layer fills; bespoke vessels (framing devices, illustrated components) → default cards and pills; choreographed sequences (staged, multi-step, gated) → single triggers or fakes; typographic systems (pairing/scale/font features) → swapping the font-family; styled components → library-default skins. If your version is simpler than the reference's, that is a downgrade. Implement at the reference's fidelity.
+</system-reminder>
