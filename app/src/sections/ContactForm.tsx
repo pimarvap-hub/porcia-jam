@@ -28,7 +28,7 @@ export default function ContactForm() {
         `Имя: ${formData.name}\nПочта: ${formData.email}\nТелефон: ${formData.phone}\nКомпания: ${formData.company}\nПродукт: ${formData.productType}\nОбъём: ${formData.volume}\n\nСообщение:\n${formData.message}`
       )}`, '_blank')
 
-      if (mailClient === null) {
+      if (mailClient == null) {
         setSubmitStatus('error')
         setTimeout(() => setSubmitStatus('idle'), 5000)
         return
