@@ -12,7 +12,7 @@ export default function ContactForm() {
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'opened' | 'error'>('idle')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -27,7 +27,7 @@ export default function ContactForm() {
       window.open(`mailto:erkin12@mail.ru?subject=Заказ%20ПОРЦИЯ%20от%20${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
         `Имя: ${formData.name}\nПочта: ${formData.email}\nТелефон: ${formData.phone}\nКомпания: ${formData.company}\nПродукт: ${formData.productType}\nОбъём: ${formData.volume}\n\nСообщение:\n${formData.message}`
       )}`, '_blank')
-      setSubmitStatus('success')
+      setSubmitStatus('opened')
       setFormData({ name: '', email: '', phone: '', company: '', productType: 'honey', volume: '', message: '' })
       setTimeout(() => setSubmitStatus('idle'), 5000)
     } catch {
@@ -193,9 +193,9 @@ export default function ContactForm() {
               />
             </div>
 
-            {submitStatus === 'success' && (
+            {submitStatus === 'opened' && (
               <div className="p-4 rounded-lg bg-green-500/20 border border-green-500/50 text-green-300 text-sm">
-                ✓ Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.
+                ✓ Спасибо! Ваш почтовый клиент должен открыться с готовой заявкой. Если этого не произошло, напишите нам напрямую на почту.
               </div>
             )}
 
