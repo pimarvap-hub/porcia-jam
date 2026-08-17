@@ -24,11 +24,13 @@ export default function ContactForm() {
     const mailtoUrl = `mailto:erkin12@mail.ru?subject=Заказ%20ПОРЦИЯ%20от%20${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
       `Имя: ${formData.name}\nПочта: ${formData.email}\nТелефон: ${formData.phone}\nКомпания: ${formData.company}\nПродукт: ${formData.productType}\nОбъём: ${formData.volume}\n\nСообщение:\n${formData.message}`
     )}`
+    const mailtoLink = document.createElement('a')
+    mailtoLink.href = mailtoUrl
 
     setSubmitStatus('opened')
     setFormData({ name: '', email: '', phone: '', company: '', productType: 'honey', volume: '', message: '' })
     setTimeout(() => setSubmitStatus('idle'), 5000)
-    window.location.href = mailtoUrl
+    mailtoLink.click()
   }
 
   return (
