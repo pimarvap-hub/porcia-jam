@@ -27,12 +27,12 @@ export default function ContactForm() {
     const mailtoLink = document.createElement('a')
     mailtoLink.href = mailtoUrl
 
-    setSubmitStatus('opened')
-    setFormData({ name: '', email: '', phone: '', company: '', productType: 'honey', volume: '', message: '' })
-    setTimeout(() => setSubmitStatus('idle'), 5000)
     document.body.appendChild(mailtoLink)
     mailtoLink.click()
     mailtoLink.remove()
+    setSubmitStatus('opened')
+    setFormData({ name: '', email: '', phone: '', company: '', productType: 'honey', volume: '', message: '' })
+    setTimeout(() => setSubmitStatus('idle'), 5000)
   }
 
   return (
