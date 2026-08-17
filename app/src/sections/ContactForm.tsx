@@ -23,19 +23,21 @@ export default function ContactForm() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    try {
-      window.open(`mailto:erkin12@mail.ru?subject=Заказ%20ПОРЦИЯ%20от%20${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
-        `Имя: ${formData.name}\nПочта: ${formData.email}\nТелефон: ${formData.phone}\nКомпания: ${formData.company}\nПродукт: ${formData.productType}\nОбъём: ${formData.volume}\n\nСообщение:\n${formData.message}`
-      )}`, '_blank')
-      setSubmitStatus('opened')
-      setFormData({ name: '', email: '', phone: '', company: '', productType: 'honey', volume: '', message: '' })
-      setTimeout(() => setSubmitStatus('idle'), 5000)
-    } catch {
+    const mailClient = window.open(`mailto:erkin12@mail.ru?subject=Заказ%20ПОРЦИЯ%20от%20${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
+      `Имя: ${formData.name}\nПочта: ${formData.email}\nТелефон: ${formData.phone}\nКомпания: ${formData.company}\nПродукт: ${formData.productType}\nОбъём: ${formData.volume}\n\nСообщение:\n${formData.message}`
+    )}`, '_blank')
+
+    if (mailClient === null) {
       setSubmitStatus('error')
       setTimeout(() => setSubmitStatus('idle'), 5000)
-    } finally {
       setIsSubmitting(false)
+      return
     }
+
+    setSubmitStatus('opened')
+    setFormData({ name: '', email: '', phone: '', company: '', productType: 'honey', volume: '', message: '' })
+    setTimeout(() => setSubmitStatus('idle'), 5000)
+    setIsSubmitting(false)
   }
 
   return (
