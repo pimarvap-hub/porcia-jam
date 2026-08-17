@@ -30,7 +30,9 @@ export default function ContactForm() {
     setSubmitStatus('opened')
     setFormData({ name: '', email: '', phone: '', company: '', productType: 'honey', volume: '', message: '' })
     setTimeout(() => setSubmitStatus('idle'), 5000)
+    document.body.appendChild(mailtoLink)
     mailtoLink.click()
+    mailtoLink.remove()
   }
 
   return (
