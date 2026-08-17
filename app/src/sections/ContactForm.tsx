@@ -24,9 +24,9 @@ export default function ContactForm() {
     setIsSubmitting(true)
 
     try {
-      window.location.href = `mailto:erkin12@mail.ru?subject=Заказ%20ПОРЦИЯ%20от%20${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
+      window.open(`mailto:erkin12@mail.ru?subject=Заказ%20ПОРЦИЯ%20от%20${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
         `Имя: ${formData.name}\nПочта: ${formData.email}\nТелефон: ${formData.phone}\nКомпания: ${formData.company}\nПродукт: ${formData.productType}\nОбъём: ${formData.volume}\n\nСообщение:\n${formData.message}`
-      )}`
+      )}`, '_blank')
       setSubmitStatus('success')
       setFormData({ name: '', email: '', phone: '', company: '', productType: 'honey', volume: '', message: '' })
       setTimeout(() => setSubmitStatus('idle'), 5000)
