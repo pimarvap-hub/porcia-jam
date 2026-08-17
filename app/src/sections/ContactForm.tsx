@@ -11,7 +11,6 @@ export default function ContactForm() {
     volume: '',
     message: '',
   })
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'opened'>('idle')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -21,7 +20,6 @@ export default function ContactForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setIsSubmitting(true)
 
     const mailtoUrl = `mailto:erkin12@mail.ru?subject=Заказ%20ПОРЦИЯ%20от%20${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
       `Имя: ${formData.name}\nПочта: ${formData.email}\nТелефон: ${formData.phone}\nКомпания: ${formData.company}\nПродукт: ${formData.productType}\nОбъём: ${formData.volume}\n\nСообщение:\n${formData.message}`
@@ -30,7 +28,6 @@ export default function ContactForm() {
     setSubmitStatus('opened')
     setFormData({ name: '', email: '', phone: '', company: '', productType: 'honey', volume: '', message: '' })
     setTimeout(() => setSubmitStatus('idle'), 5000)
-    setIsSubmitting(false)
     window.location.href = mailtoUrl
   }
 
@@ -197,11 +194,10 @@ export default function ContactForm() {
 
             <button
               type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-[#e8390f] hover:bg-white text-white hover:text-[#e8390f] font-display text-lg tracking-[0.1em] py-4 rounded-lg transition-all disabled:opacity-50"
+              className="w-full bg-[#e8390f] hover:bg-white text-white hover:text-[#e8390f] font-display text-lg tracking-[0.1em] py-4 rounded-lg transition-all"
               data-cursor
             >
-              {isSubmitting ? '⏳ Отправляю...' : '📤 ОТПРАВИТЬ ЗАЯВКУ'}
+              📤 ОТПРАВИТЬ ЗАЯВКУ
             </button>
 
             <p className="text-[11px] text-white/40 text-center">
