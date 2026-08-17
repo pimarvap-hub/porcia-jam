@@ -11,33 +11,27 @@ export default function ContactForm() {
     volume: '',
     message: '',
   })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'opened'>('idle')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setIsSubmitting(true)
 
-    try {
-      const response = await fetch(
-        `mailto:erkin12@mail.ru?subject=Заказ%20ПОРЦИЯ%20от%20${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
-          `Имя: ${formData.name}\nПочта: ${formData.email}\nТелефон: ${formData.phone}\nКомпания: ${formData.company}\nПродукт: ${formData.productType}\nОбъём: ${formData.volume}\n\nСообщение:\n${formData.message}`
-        )}`
-      )
-      setSubmitStatus('success')
-      setFormData({ name: '', email: '', phone: '', company: '', productType: 'honey', volume: '', message: '' })
-      setTimeout(() => setSubmitStatus('idle'), 5000)
-    } catch {
-      setSubmitStatus('error')
-      setTimeout(() => setSubmitStatus('idle'), 5000)
-    } finally {
-      setIsSubmitting(false)
-    }
+    const mailtoUrl = `mailto:erkin12@mail.ru?subject=Заказ%20ПОРЦИЯ%20от%20${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
+      `Имя: ${formData.name}\nПочта: ${formData.email}\nТелефон: ${formData.phone}\nКомпания: ${formData.company}\nПродукт: ${formData.productType}\nОбъём: ${formData.volume}\n\nСообщение:\n${formData.message}`
+    )}`
+    const mailtoLink = document.createElement('a')
+    mailtoLink.href = mailtoUrl
+
+    document.body.appendChild(mailtoLink)
+    mailtoLink.click()
+    mailtoLink.remove()
+    setSubmitStatus('opened')
+    setTimeout(() => setSubmitStatus('idle'), 5000)
   }
 
   return (
@@ -195,25 +189,18 @@ export default function ContactForm() {
               />
             </div>
 
-            {submitStatus === 'success' && (
+            {submitStatus === 'opened' && (
               <div className="p-4 rounded-lg bg-green-500/20 border border-green-500/50 text-green-300 text-sm">
-                ✓ Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.
-              </div>
-            )}
-
-            {submitStatus === 'error' && (
-              <div className="p-4 rounded-lg bg-red-500/20 border border-red-500/50 text-red-300 text-sm">
-                ✗ Ошибка при отправке. Попробуйте ещё раз или пишите напрямую на почту.
+                ✓ Спасибо! Мы попытались открыть ваш почтовый клиент с готовой заявкой. Если этого не произошло, напишите нам напрямую на почту.
               </div>
             )}
 
             <button
               type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-[#e8390f] hover:bg-white text-white hover:text-[#e8390f] font-display text-lg tracking-[0.1em] py-4 rounded-lg transition-all disabled:opacity-50"
+              className="w-full bg-[#e8390f] hover:bg-white text-white hover:text-[#e8390f] font-display text-lg tracking-[0.1em] py-4 rounded-lg transition-all"
               data-cursor
             >
-              {isSubmitting ? '⏳ Отправляю...' : '📤 ОТПРАВИТЬ ЗАЯВКУ'}
+              📤 ОТПРАВИТЬ ЗАЯВКУ
             </button>
 
             <p className="text-[11px] text-white/40 text-center">
